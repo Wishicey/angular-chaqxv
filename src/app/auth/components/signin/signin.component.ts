@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {AuthService} from '../../../core/services/auth.service';
-import {Router}​​​​​ from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -12,14 +12,15 @@ export class SigninComponent implements OnInit {
 
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private authService: AuthService,
-    private routeur: Router) {
+    private router: Router,
+  ) {
   }
 
   userForm = this.fb.group({
-    email: [null, [Validators.required, Validators.email]],
-    password: [null, [Validators.required, Validators.minLength(6)]]
+    email: ['samuel@wecolearn.com', [Validators.required, Validators.email]],
+    password: ['admin1234', [Validators.required, Validators.minLength(6)]],
   });
 
   ngOnInit() {
@@ -34,8 +35,10 @@ export class SigninComponent implements OnInit {
   }
 
   signin() {
-    // connexion
+
     console.log('submitted : ');
+
+    // toutes les données du formulaire
     console.log(this.userForm.getRawValue());
 
     this.authService.signin(
@@ -43,14 +46,20 @@ export class SigninComponent implements OnInit {
       this.passwordControl.value
     ).subscribe(
       (result) => {
-      this.routeur.navigate(['dash/home']);
-      
-    },
-    (err) => {
-      // On peut dire à l'utilisateur que le mdp/email est incorrect
-      console.log({err});
-    });
-
-
+        // connexion est réussie !
+        this.router.navigate(['dash/home']);
+      },
+      (err) => {
+        // on peut dire à l'utilisateur qu'il n'a pas donné les bons identifiants
+        console.log({ err });
+      });
   }
+
+
+
+
+
+
+
+
 }

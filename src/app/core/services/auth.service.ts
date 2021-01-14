@@ -1,45 +1,38 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {​​​​​tap}​​​​​ from 'rxjs/operators';
 
 import { User } from '../entities/user';
 import { environment} from '../../../environments/environment';
-import { SessionService } from './session.service';
-
-
-/*
- * Cette méthode 
- */
-
+import {tap} from 'rxjs/operators';
+import {SessionService} from './session.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  static user: User = null;
+  static user: User | null = null;
 
   constructor(
     private httpClient: HttpClient,
     private sessionService: SessionService
-    ) { }
+  ) { }
 
-    static get isSignedIn(): boolean{
-      return AuthService.user !==null;
-    }
+  static get isSignedIn(): boolean {
+    return AuthService.user !== null;
+  }
 
   signin(email: string, password: string): Observable<any> {
     return this.httpClient.post(
       `${environment.api}/api/login_check`,
       {email, password}
-      )
-      .pipe(
-        tap((response) =>{
-          console.log('piped value', response.token);
-          this.sessionService.setToken(response.token);
-        })
-      );
+      ).pipe(
+      tap(response => {
+        console.log('token', response.token);
+        this.sessionService.setToken(response.token);
+      })
+    );
   }
 
   signup(user: User): Observable<any> {
@@ -54,10 +47,12 @@ export class AuthService {
       `${environment.api}/api/ping`
     ).pipe(
       tap((user: User) => {
-          console.log(user);
-          AuthService.user = user;
+        console.log({user});
+        AuthService.user = user;
       }),
     );
   }
+
+
 
 }

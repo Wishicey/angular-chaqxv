@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from './core/services/auth.service';
-import { SessionService } from './core/services/session.service';
+import {AuthService} from './core/services/auth.service';
+import {SessionService} from './core/services/session.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,13 +15,14 @@ export class AppComponent {
     private router: Router
   ) {}
 
-  get isSignedIn(): boolean{
+  get isSignedIn(): boolean {
     return AuthService.isSignedIn;
   }
 
-  signout(): void{
+  signout(): void {
     AuthService.user = null;
     this.sessionService.clear();
     this.router.navigate(['/auth/signin']);
   }
+
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CanActivateGuard } from './core/can-activate.guard';
+import {CanActivateGuard} from './core/can-activate.guard';
 
 const routes: Routes = [
   {
@@ -10,6 +10,7 @@ const routes: Routes = [
   {
     path: 'dash',
     canActivate: [CanActivateGuard],
+    data: { admin: true },
     loadChildren: () => import('./dash/dash.module').then(mod => mod.DashModule),
   },
   {
@@ -19,9 +20,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  /*
-   * Dans le router principale on utilise forRoot()
-   */
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })

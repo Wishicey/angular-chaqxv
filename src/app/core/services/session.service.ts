@@ -7,16 +7,17 @@ export class SessionService {
 
   constructor() { }
 
-  setToken(token: string): void{
+  setToken(token: string): void {
     localStorage.setItem('token', token);
   }
 
-  getToken(){
+  getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  clear(): void{
+  clear(): void {
     localStorage.clear();
   }
+
 
 }

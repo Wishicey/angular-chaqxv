@@ -1,6 +1,6 @@
-import { TagInterface } from "../interfaces/tags.interface";
-
 /* tslint:disable:variable-name */
+import {TagInterface} from '../interfaces/tag.interface';
+
 export class User {
   id?: number;
   first_name: string;
@@ -8,6 +8,7 @@ export class User {
   email?: string;
   password?: string;
   tags?: TagInterface[];
+  roles?: string[];
 
   constructor(obj?: any) {
     this.first_name = 'first_name' in obj ? obj.first_name : '';

@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {CoreModule} from './core/core.module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {ApiInterceptor} from './core/api.interceptor';
-import {MatButtonModule, MatIconModule, MatMenuModule} from '@angular/material';
+import {SharedModule} from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -18,9 +18,7 @@ import {MatButtonModule, MatIconModule, MatMenuModule} from '@angular/material';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatIconModule,
+    SharedModule,
   ],
   providers: [
     {
@@ -32,4 +30,3 @@ import {MatButtonModule, MatIconModule, MatMenuModule} from '@angular/material';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-

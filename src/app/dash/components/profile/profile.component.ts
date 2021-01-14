@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { TagInterface } from 'src/app/core/interfaces/tags.interface';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { ProfileService } from 'src/app/core/services/profile.service';
-import { TagService } from 'src/app/core/services/tag.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ProfileService} from '../../../core/services/profile.service';
+import {AuthService} from '../../../core/services/auth.service';
+import {Observable} from 'rxjs';
+import {TagInterface} from '../../../core/interfaces/tag.interface';
+import {TagService} from '../../../core/services/tag.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,20 +14,18 @@ import { TagService } from 'src/app/core/services/tag.service';
 export class ProfileComponent implements OnInit {
 
   tags$: Observable<TagInterface[]>;
+
   constructor(
     private fb: FormBuilder,
     private profileService: ProfileService,
     private tagService: TagService
-  ) { 
+  ) {
     this.tags$ = this.tagService.get();
-    /*this.tags$.subscribe((val)=>{
-      console.log({val})
-    });*/
   }
 
   userForm = this.fb.group({
-    first_name: [null],
-    last_name: [null],
+    first_name: [null, [Validators.required]],
+    last_name: [null, [Validators.required]],
     tags: [[]]
   });
 
@@ -46,16 +44,17 @@ export class ProfileComponent implements OnInit {
     return this.userForm.get('last_name');
   }
 
-  get tagsControl(){
+  get tagsControl() {
     return this.userForm.get('tags');
   }
 
-  updateProfile() : void{
-    const userChanges = this.userForm.getRawValue()
-
+  updateProfile(): void {
+    const userChanges = this.userForm.getRawValue();
     this.profileService.updateProfile(userChanges).subscribe();
+  }
 
-    //envoyer des infos a l'api
+  compareIds(tagOption: TagInterface, tagSelection: TagInterface): boolean {
+    return tagOption.id === tagSelection.id;
   }
 
 }
