@@ -1,0 +1,18 @@
+h1{
+    text-align: center;
+    margin-top: 50px;
+}
+
+p{
+    text-align: center;
+}
+
+.matchContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    mat-card{
+        width: 20%;
+        margin-top: 15px;
+    }
+}

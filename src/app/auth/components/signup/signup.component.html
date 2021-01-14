@@ -1,0 +1,44 @@
+<h1> Page d'inscription </h1>
+
+<form [formGroup]="userForm" (ngSubmit)="signup()">
+
+    <mat-form-field appearance="legacy">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" type="email" formControlName="email">
+      <mat-error *ngIf="emailControl.hasError('required')">
+        L'email est obligatoire
+      </mat-error>
+      <mat-error *ngIf="emailControl.hasError('email') && !emailControl.hasError('required')">
+        L'email n'est pas valide
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy">
+      <mat-label>Password</mat-label>
+      <input matInput placeholder="Password" type="password" formControlName="password">
+      <mat-error *ngIf="passwordControl.hasError('required')">
+        Le mot de passe est obligatoire
+      </mat-error>
+      <mat-error *ngIf="passwordControl.hasError('minlength') && !passwordControl.hasError('required')">
+        Le mot de passe doit faire plus de 6 caractères
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy">
+        <mat-label>Prénom</mat-label>
+        <input matInput placeholder="Prénom" type="text" formControlName="first_name">
+        <mat-error *ngIf="firstNameControl.hasError('required')">
+            Le prénom est obligatoire
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy">
+    <mat-label>Nom</mat-label>
+    <input matInput placeholder="Nom" type="text" formControlName="last_name">
+    <mat-error *ngIf="lastNameControl.hasError('required')">
+        Le nom est obligatoire
+    </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit">Incription</button>
+  </form>
+  
